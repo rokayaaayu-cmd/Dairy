@@ -29,18 +29,20 @@ interface AppState {
   setTrackingEnabled: (v: boolean) => void;
 }
 
-const AppContext = createContext<AppState>({
-  darkMode: false,
-  toggleDarkMode: () => {},
-  onboardingComplete: false,
-  setOnboardingComplete: () => {},
-  trackingEnabled: true,
-  setTrackingEnabled: () => {},
-});
+const AppContext = createContext<AppState | null>(null);
+
+// Custom hook with safety check
+function useAppContext() {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error('useAppContext must be used within AppContext.Provider');
+  }
+  return context;
+}
 
 // Onboarding Component
 function Onboarding() {
-  const { setOnboardingComplete } = useContext(AppContext);
+  const { setOnboardingComplete } = useAppContext();
   const [step, setStep] = useState(0);
 
   const steps = [
@@ -139,7 +141,7 @@ function Onboarding() {
 
 // Dashboard Component
 function Dashboard() {
-  const { darkMode, trackingEnabled } = useContext(AppContext);
+  const { darkMode, trackingEnabled } = useAppContext();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const apps = getAppsForDate(selectedDate);
   const diary = getDiaryForDate(selectedDate);
@@ -502,7 +504,7 @@ function Insights() {
   const topics = getTopicTrends();
   const screenTimeData = getScreenTimeData();
   const categoryData = getCategoryBreakdown(new Date());
-  const { darkMode } = useContext(AppContext);
+  const { darkMode } = useAppContext();
 
   const PIE_COLORS = ['#8B7EC8', '#7BA7D4', '#6BBF8A', '#E8B86B', '#D47B7B', '#B8AEE0'];
 
@@ -747,7 +749,7 @@ function CalendarView() {
 
 // Settings Component
 function SettingsView() {
-  const { darkMode, toggleDarkMode, trackingEnabled, setTrackingEnabled } = useContext(AppContext);
+  const { darkMode, toggleDarkMode, trackingEnabled, setTrackingEnabled } = useAppContext();
   const [showPermissions, setShowPermissions] = useState(false);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [summaryTime, setSummaryTime] = useState('21:00');
