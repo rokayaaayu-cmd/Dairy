@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FAF8F5;
+  --color-cream-dark: #F3F0EB;
+  --color-lavender: #8B7EC8;
+  --color-lavender-light: #B8AEE0;
+  --color-lavender-dark: #6B5EA8;
+  --color-blue-soft: #7BA7D4;
+  --color-blue-light: #B4D4F0;
+  --color-surface: #FFFFFF;
+  --color-surface-dark: #1E1E2E;
+  --color-card-dark: #2A2A3E;
+  --color-text-primary: #2D2B3D;
+  --color-text-secondary: #6B6880;
+  --color-text-dark: #E8E6F0;
+  --color-text-dark-secondary: #A8A4BC;
+  --color-success: #6BBF8A;
+  --color-warning: #E8B86B;
+  --color-danger: #D47B7B;
+}
+
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.dark body {
+  background-color: #13131F;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 126, 200, 0.3);
+  border-radius: 4px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(139, 126, 200, 0.1) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+  background: rgba(30, 30, 46, 0.8);
+}
+
+/* Card shadows */
+.card-shadow {
+  box-shadow: 0 2px 12px rgba(45, 43, 61, 0.06), 0 1px 3px rgba(45, 43, 61, 0.04);
+}
+
+.dark .card-shadow {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Safe area for mobile */
+.safe-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.safe-top {
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
