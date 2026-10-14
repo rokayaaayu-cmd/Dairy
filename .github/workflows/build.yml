@@ -22,6 +22,8 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.4'
 
       # Accept SDK licenses non-interactively by writing license hash files
       # directly. This bypasses the interactive prompt that causes failures
