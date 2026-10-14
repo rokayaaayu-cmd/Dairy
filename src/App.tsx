@@ -6,7 +6,8 @@ import {
   ChevronLeft, ChevronRight, Clock, Smartphone, Brain, Sparkles,
   TrendingUp, TrendingDown, Shield, Eye, EyeOff, Download,
   Trash2, Bell, BellOff, Check, X, Info, ArrowRight, Zap,
-  Target, Heart, Coffee, Star, Activity, PieChart as PieIcon
+  Target, Heart, Coffee, Star, Activity, PieChart as PieIcon,
+  Code2, Folder, FileText, Video, MessageSquare
 } from 'lucide-react';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip,
@@ -18,6 +19,9 @@ import {
   getScreenTimeData, getCategoryBreakdown,
   type AppUsage, type DiaryEntry, type TimelineEvent
 } from './data/mockData';
+import { ContentView, CaptureIndicator } from './components/ContentView';
+import { ProjectsView } from './components/ProjectsView';
+import { EnhancedDiaryView } from './components/EnhancedDiaryView';
 
 // Context
 interface AppState {
@@ -377,11 +381,49 @@ function Dashboard() {
           ))}
         </div>
       </div>
+
+      {/* Content Understanding Quick View */}
+      <div className="px-5 mt-6">
+        <div className="bg-white dark:bg-card-dark rounded-2xl p-4 card-shadow">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-blue-soft" />
+              <h3 className="font-semibold text-sm text-text-primary dark:text-text-dark">Content Understanding</h3>
+            </div>
+            <span className="text-xs text-lavender font-medium">See all →</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="bg-cream dark:bg-surface-dark rounded-xl p-2.5 text-center">
+              <FileText className="w-4 h-4 text-blue-soft mx-auto mb-1" />
+              <p className="text-sm font-bold text-text-primary dark:text-text-dark">2</p>
+              <p className="text-[10px] text-text-secondary dark:text-text-dark-secondary">Articles</p>
+            </div>
+            <div className="bg-cream dark:bg-surface-dark rounded-xl p-2.5 text-center">
+              <Video className="w-4 h-4 text-danger mx-auto mb-1" />
+              <p className="text-sm font-bold text-text-primary dark:text-text-dark">1</p>
+              <p className="text-[10px] text-text-secondary dark:text-text-dark-secondary">Videos</p>
+            </div>
+            <div className="bg-cream dark:bg-surface-dark rounded-xl p-2.5 text-center">
+              <MessageSquare className="w-4 h-4 text-lavender mx-auto mb-1" />
+              <p className="text-sm font-bold text-text-primary dark:text-text-dark">1</p>
+              <p className="text-[10px] text-text-secondary dark:text-text-dark-secondary">AI Chats</p>
+            </div>
+          </div>
+          <div className="mt-3 p-2.5 rounded-xl bg-lavender/5 border border-lavender/10">
+            <div className="flex items-start gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-lavender mt-0.5 shrink-0" />
+              <p className="text-xs text-text-secondary dark:text-text-dark-secondary">
+                <span className="font-medium text-text-primary dark:text-text-dark">Today's focus:</span> React Server Components, TypeScript patterns, and debugging hydration errors
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-// Diary View Component
+// Diary View Component (kept for reference but replaced by EnhancedDiaryView)
 function DiaryView() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const diaries = getWeeklyDiaries();
@@ -899,6 +941,91 @@ function SettingsView() {
         </div>
       </div>
 
+      {/* Screen Capture & Privacy */}
+      <div className="mb-6">
+        <h3 className="text-xs font-semibold text-text-secondary dark:text-text-dark-secondary uppercase tracking-wide mb-3">Screen Capture & Privacy</h3>
+        <div className="bg-white dark:bg-card-dark rounded-2xl card-shadow overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b border-cream dark:border-surface-dark">
+            <div className="flex items-center gap-3">
+              <Eye className="w-5 h-5 text-blue-soft" />
+              <div>
+                <span className="text-sm font-medium text-text-primary dark:text-text-dark">Content Capture</span>
+                <p className="text-xs text-text-secondary dark:text-text-dark-secondary">User-initiated screen capture</p>
+              </div>
+            </div>
+            <ChevronRight className="w-4 h-4 text-text-secondary dark:text-text-dark-secondary" />
+          </div>
+          <div className="flex items-center justify-between p-4 border-b border-cream dark:border-surface-dark">
+            <div className="flex items-center gap-3">
+              <Shield className="w-5 h-5 text-success" />
+              <div>
+                <span className="text-sm font-medium text-text-primary dark:text-text-dark">Sensitive Content Redaction</span>
+                <p className="text-xs text-text-secondary dark:text-text-dark-secondary">Auto-redact passwords & private info</p>
+              </div>
+            </div>
+            <button className="w-12 h-7 rounded-full bg-success">
+              <div className="w-5 h-5 rounded-full bg-white shadow-sm translate-x-6" />
+            </button>
+          </div>
+          <div className="flex items-center justify-between p-4 border-b border-cream dark:border-surface-dark">
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-warning" />
+              <div>
+                <span className="text-sm font-medium text-text-primary dark:text-text-dark">Data Retention</span>
+                <p className="text-xs text-text-secondary dark:text-text-dark-secondary">Auto-delete after period</p>
+              </div>
+            </div>
+            <span className="text-sm font-medium text-lavender">30 days</span>
+          </div>
+          <div className="flex items-center justify-between p-4">
+            <div className="flex items-center gap-3">
+              <Folder className="w-5 h-5 text-text-secondary" />
+              <div>
+                <span className="text-sm font-medium text-text-primary dark:text-text-dark">Excluded Apps</span>
+                <p className="text-xs text-text-secondary dark:text-text-dark-secondary">Banking, Messages, Settings</p>
+              </div>
+            </div>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-cream dark:bg-surface-dark text-text-secondary dark:text-text-dark-secondary">3 apps</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Android API Limitations */}
+      <div className="mb-6">
+        <h3 className="text-xs font-semibold text-text-secondary dark:text-text-dark-secondary uppercase tracking-wide mb-3">Android API Limitations</h3>
+        <div className="bg-white dark:bg-card-dark rounded-2xl p-4 card-shadow">
+          <div className="space-y-2">
+            {[
+              { label: 'MediaProjection', desc: 'Requires user consent each session, shows system dialog', status: 'Supported' },
+              { label: 'AccessibilityService', desc: 'Requires explicit enablement in Settings', status: 'Optional' },
+              { label: 'NotificationListenerService', desc: 'Requires user permission grant', status: 'Supported' },
+              { label: 'UsageStatsManager', desc: 'App-level usage only, no content', status: 'Active' },
+              { label: 'Background screen reading', desc: 'Not permitted by Android', status: 'Not possible' },
+              { label: 'DRM-protected content', desc: 'Blocked by system (black screen)', status: 'Cannot bypass' },
+            ].map(item => (
+              <div key={item.label} className="flex items-start gap-2">
+                <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${
+                  item.status === 'Active' || item.status === 'Supported' ? 'bg-success' :
+                  item.status === 'Optional' ? 'bg-warning' :
+                  'bg-danger'
+                }`} />
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-medium text-text-primary dark:text-text-dark">{item.label}</p>
+                    <span className={`text-[10px] font-medium ${
+                      item.status === 'Active' || item.status === 'Supported' ? 'text-success' :
+                      item.status === 'Optional' ? 'text-warning' :
+                      'text-danger'
+                    }`}>{item.status}</span>
+                  </div>
+                  <p className="text-xs text-text-secondary dark:text-text-dark-secondary">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Info */}
       <div className="bg-lavender/5 rounded-2xl p-4 border border-lavender/10">
         <div className="flex items-start gap-3">
@@ -920,9 +1047,9 @@ function SettingsView() {
 function BottomNav({ active, onChange }: { active: string; onChange: (tab: string) => void }) {
   const tabs = [
     { id: 'dashboard', icon: BarChart3, label: 'Home' },
+    { id: 'content', icon: Eye, label: 'Content' },
+    { id: 'projects', icon: Code2, label: 'Projects' },
     { id: 'diary', icon: BookOpen, label: 'Diary' },
-    { id: 'insights', icon: Target, label: 'Insights' },
-    { id: 'calendar', icon: Calendar, label: 'Calendar' },
     { id: 'settings', icon: Settings, label: 'Settings' },
   ];
 
@@ -981,6 +1108,7 @@ export default function App() {
   return (
     <AppContext.Provider value={{ darkMode, toggleDarkMode, onboardingComplete, setOnboardingComplete, trackingEnabled, setTrackingEnabled }}>
       <div className={`min-h-screen max-w-lg mx-auto ${darkMode ? 'dark bg-[#13131F]' : 'bg-cream'}`}>
+        <CaptureIndicator />
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -990,9 +1118,9 @@ export default function App() {
             transition={{ duration: 0.2 }}
           >
             {activeTab === 'dashboard' && <Dashboard />}
-            {activeTab === 'diary' && <DiaryView />}
-            {activeTab === 'insights' && <Insights />}
-            {activeTab === 'calendar' && <CalendarView />}
+            {activeTab === 'content' && <ContentView />}
+            {activeTab === 'projects' && <ProjectsView />}
+            {activeTab === 'diary' && <EnhancedDiaryView />}
             {activeTab === 'settings' && <SettingsView />}
           </motion.div>
         </AnimatePresence>
